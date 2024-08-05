@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="File">
+	 <insert id="insert" parameterType="filedto">
+      insert into
+      <choose>
+         <when test="userid!=null">
+            u_img (systemname, orgname, userid)
+            values(#{systemname},#{orgname},#{userid})
+         </when>
+         <when test="boardnum!=0">
+            b_img (systemname, orgname, boardnum)
+            values(#{systemname},#{orgname},#{boardnum})
+         </when>
+         <when test="board_tempnum!=0">
+            bt_img (systemname, orgname, board_tempnum)
+            values(#{systemname},#{orgname},#{board_tempnum})
+         </when>
+         <when test="storenum!=0">
+            s_img (systemname, orgname, storenum)
+            values(#{systemname},#{orgname},#{storenum})
+         </when>
+      </choose>
+   </insert>
+   <insert id="insertUser" parameterType="filedto">
+   		insert into u_img(systemname, orgname, userid) values(#{systemname}, #{orgname}, #{userid})
+   </insert>
+   <select id="getLastNum" resultType="int">
+   		select u_imgnum from u_img order by u_imgnum desc limit 1;
+   </select>
+   <select id="getFile" parameterType="filedto" resultType="filedto">
+   		select * from s_img where storenum=#{storenum} limit 1
+   </select>
+   <select id="getFiles" parameterType="filedto" resultType="filedto">
+      select * from
+      <choose>
+         <when test="userid!=null">
+            u_img where userid=#{userid}
+         </when>
+         <when test="boardnum!=0">
+            b_img where boardnum=#{boardnum}
+         </when>
+         <when test="board_tempnum!=0">
+            bt_img where board_tempnum=#{board_tempnum}
+         </when>
+         <when test="storenum!=0">
+            s_img where storenum=#{storenum}
+         </when>
+      </choose>
+   </select>
+   <select id="getUserFile" parameterType="String" resultType="filedto">
+   		select * from u_img where userid=#{userid} order by u_imgnum desc limit 1;
+   </select>
+   <select id="getUserFileCnt" parameterType="String" resultType="int">
+   		select count(*) from u_img where userid=#{userid};
+   </select>
+   <delete id="delete" parameterType="filedto">
+      delete from
+      <choose>
+         <when test="userid!=null">
+            u_img
+         </when>
+         <when test="boardnum!=0">
+            b_img
+         </when>
+         <when test="board_tempnum!=0">
+            bt_img
+         </when>
+         <when test="storenum!=0">
+            s_img 
+         </when>
+      </choose>
+      where systemname=#{systemname}
+   </delete>
+   <delete id="deleteByUserid" parameterType="filedto">
+   		delete from u_img where userid=#{userid}
+   </delete>
+   <delete id="deleteNum" parameterType="long">
+		delete from s_img where storenum=#{storenum}
+   </delete>
+   <delete id="deleteByBoardNum" parameterType="long">
+		delete from b_img where boardnum=#{boardnum}
+   </delete>
+   
+</mapper> 
+
+
+
+
+
+
+
+

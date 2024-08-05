@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Category">
+   <insert id="insert" parameterType="categorydto">
+      insert into
+      <choose>
+         <when test="userid!=null">
+            u_category (userid, categorynum)
+            values(#{userid},#{categorynum})
+         </when>
+         <when test="boardnum!=0">
+            b_category (boardnum, categorynum)
+            values(#{boardnum},#{categorynum})
+         </when>
+         <when test="storenum!=0">
+            s_category (storenum, categorynum)
+            values(#{storenum},#{categorynum})
+         </when>
+      </choose>
+   </insert> 
+   
+   <select id="getCategories" parameterType="categorydto" resultType="categorydto">
+      select * from
+      <choose>
+         <when test="userid!=null">
+            u_category where userid=#{userid}
+         </when>
+         <when test="boardnum!=0">
+            b_category where boardnum=#{boardnum}
+         </when>
+         <when test="storenum!=0">
+      		s_category where storenum=#{storenum}
+         </when>
+         <otherwise>
+         	category
+         </otherwise>
+      </choose>
+   </select>
+   <select id="getCategoryNum" parameterType="categorydto" resultType="categorydto">
+      select categorynum from category; 
+   </select>
+   
+   <delete id="delete" parameterType="categorydto">
+      delete from
+      <choose>
+         <when test="userid!=null">
+            u_category where userid=#{userid}
+         </when>
+         <when test="boardnum!=0">
+            b_category where boardnum=#{boardnum}
+         </when>
+         <when test="storenum!=0">
+         	s_category where storenum=#{storenum}
+         </when>
+      </choose>
+      and categorynum=#{categorynum}
+   </delete>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="User">
+  	 
+  	 <insert id="insert" parameterType="userdto">
+		insert into user values(#{userid},#{userpw},#{username},
+		#{nickname},#{phone},#{email},#{gender},#{birth},#{zipcode},
+		#{addr},#{addrdetail},#{addretc})
+	</insert>
+	
+	<select id="select" parameterType="string" resultType="userdto">
+		select * from user where userid = #{userid}
+	</select>
+	<update id="update" parameterType ="userdto">
+		update user
+		set userpw=#{userpw}, username=#{username}, nickname=#{nickname}, phone=#{phone}, email=#{email} where userid=#{userid}
+	</update>
+	
+	
+  	
+ 	
+ 	
+	
+	<!-- 카테고리 -->
+	<select id="getUserCategoriesByUserid" parameterType="string" resultType="usercategorydto">
+   		select * from u_category where userid = #{userid}
+  	</select>
+  	
+  	
+  </mapper>

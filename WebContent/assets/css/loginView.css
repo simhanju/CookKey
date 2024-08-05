@@ -1,0 +1,109 @@
+*{
+	box-sizing: border-box;
+}
+
+#wrap{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+body{
+    background-color:white;
+}
+input{
+    cursor:pointer;
+}
+table, tr, th, td{
+    border-collapse: collapse;
+    vertical-align: middle;
+}
+a{
+	text-decoration: none;
+}
+.btn_area{
+	margin:0 auto;
+	display:flex;
+	justify-content: center;
+}
+.btn_area > *{
+	display: inline-block;
+	margin-left: 10px; margin-right:10px;
+}
+
+.logo {
+    width: 200px; height: 100px;
+}
+
+.login input[type=text], .login input[type=password]{
+	padding:10px;
+	width:200px;
+	margin-left:20px;
+	border:1px solid #ccc;
+	border-radius:5px;
+	outline:none;
+}
+.login input[type=text]:focus, .login input[type=password]:focus{
+	border:1px solid #ffcd29;
+}
+.login input[type=submit], .login a.btn{
+	margin-top:15px;
+	padding:10px 20px;
+	width:120px;
+	border: 2px solid #ffb900;
+	background-color: #ffffff;
+	border-radius: 5px;
+	color:#ffb900;
+	font-weight:bold;
+	font-size:18px;
+	text-decoration: none;
+}
+.pan {
+    width: 600px; height: 550px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	text-align: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color:#5e5e5e;
+    position: absolute;
+    z-index: 1;
+}
+
+form {
+    width: 500px; height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+	text-align: center;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: rgb(245,246,247);
+}
+#wrap>.handle {
+    width: 100px; height: 350px;
+    background-color: #757575;
+    position: relative;
+    left: 200px; top: 300px;
+    transform: rotate(-45deg);
+}
+#wrap>.handle2 {
+    width: 100px; height: 100px;
+    border-radius: 50%;
+    background-color: #757575;
+    position: relative;
+    left: 325px; top: 200px;
+    transform: rotate(-45deg);
+}
+#wrap>.handle3 {
+    width: 70px; height: 70px;
+    border-radius: 50%;
+    background-color: white;
+    position: relative;
+    z-index: 1;
+    left: 325px; top: 115px;
+    transform: rotate(-45deg);
+}

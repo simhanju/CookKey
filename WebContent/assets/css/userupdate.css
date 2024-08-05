@@ -1,0 +1,176 @@
+@import url(fontawesome-all.min.css);
+@font-face {
+    font-family: 'BMJUA';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/BMJUA.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: 'BMHANNAPro';
+	src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_seven@1.0/BMHANNAPro.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+    font-family: 'SejonghospitalBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SejonghospitalBold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+/* 오뮤 다예쁨체 */
+@font-face {
+    font-family: 'omyu_pretty';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-01@1.0/omyu_pretty.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+*{
+	box-sizing: border-box;
+}
+body{
+    background-color:rgb(245,246,247);
+    margin: 0 auto !important;
+}
+input{
+    cursor:pointer;
+}
+
+a{
+	text-decoration: none;
+}
+.hdd{ display: none !important; visibility: hidden !important; }
+.btn_area{
+	margin:0 auto;
+	display:flex;
+	justify-content: center;
+}
+.btn_area > *{
+	display: inline-block;
+	margin-left: 10px; margin-right:10px;
+}
+
+/* 개인 css */
+.update_div {
+	height: 1400px;
+	display: grid;
+	grid-template-rows: 40% 60%;
+	
+}
+
+/* 비밀번호 수정 form */
+.updatepwForm, .updateInfoForm {
+	width: 50%; height: 400px;
+	margin:0 auto;
+	margin-top: 60px;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 20px;
+	border: 3px solid #ffcd29;
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+	/* 현제 비밀번호  ~ 새 비밀번호 확인*/
+	.updatepwForm > :nth-child(-n+3){
+		width: 100%;
+		display: grid;
+		grid-template-columns: 20% 80%;
+	}
+	.updatepwForm > :nth-child(2) > input {
+		width: 100%;
+	}
+	
+	.updatepwForm > :nth-child(-n+3) > div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		gap: 10px;
+	}
+	.updatepwForm > :nth-child(-n+3) > label {
+		text-align: center;
+		margin: auto;
+		font-family: 'BMJUA';
+		font-size: 25px;
+	}
+	
+	/* 새 비밃번호 유효성 검사 글 */
+	.pw_check{
+	padding:10px 15px;
+	margin: 0 auto;
+	border:1px solid #ffcd29;
+	background-color: #fff !important;
+	font-size: 80%;
+	font-weight: bold;
+	width:530px;
+	}
+	.pw_check span{
+		display: block;
+		margin-left: 10px;
+	}
+	.pw_check span::before{
+		content:"";
+	}
+	.pw_check .pct, .pw_check .pcf{
+		margin-left: 0px;
+	}
+	.pw_check .pct::before{
+		content:"✔";
+		position: relative;
+		left:-5px;
+	}
+	.pw_check .pcf::before{
+		content:"✖";
+		position: relative;
+		left:-5px;
+	}
+/* 개인정보 수정 form */
+.updateInfoForm {
+	margin-top: 0;
+	height: 800px;
+}
+.updateInfoForm > div {
+	display: grid;
+	grid-template-columns: 15% 85%;
+}
+	/* 프로필 사진 */
+	.updateInfoForm > :nth-child(1) {
+		display: flex;
+		flex-direction: column;
+	}
+	.updateInfoForm > :nth-child(1) > div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	.updateInfoForm > :nth-child(1) > a {
+		text-align: center;
+	}
+	.updateInfoForm > :nth-child(1) > div > a > img{
+		width: 300px; height: 300px;
+		border-radius: 50%;
+		border: 1px solid rgba(210, 215, 217, 0.75);
+ 	}
+ 	
+ 	/* 아이디  ~ 이메일 */
+	.updateInfoForm > div > label {
+		text-align: center;
+		margin: auto;
+		font-family: 'BMJUA';
+		font-size: 25px;
+	}
+#backButton {
+    font-size: 50px;
+    margin-right: 50px;
+    margin-left: 300px;
+    cursor: pointer;
+}
+#nextButton {
+    font-size: 50px;
+    margin-right: 50px;
+    margin-right: 300px;
+    cursor: pointer;
+}
+
+

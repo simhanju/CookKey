@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Board">
+	<!-- Board -->
+	<insert id="insert" parameterType="boarddto">
+		insert into
+		board(boardcontents,userid)
+		values(#{boardcontents},#{userid})
+	</insert>
+	<select id="getBoardByBoardNum" parameterType="long"
+		resultType="boarddto">
+		select * from board where boardnum=#{boardnum}
+	</select>
+	<select id="getListByUserId" parameterType="hashmap"
+		resultType="boarddto">
+        <![CDATA[
+           select * from board
+           where userid=#{userid}
+              and boardnum < ${maxNum}
+         order by boardnum desc limit ${pageSize}
+      ]]>
+	</select>
+	<select id="getMainBoardList" parameterType="hashmap"
+		resultType="boarddto">
+      <![CDATA[
+         SELECT DISTINCT b.boardnum, b.boardcontents, b.regdate, b.updatedate,  b.readcount, b.userid
+         FROM board b
+         LEFT JOIN u_category uc ON #{userid} = uc.userid
+         LEFT JOIN b_category bc ON b.boardnum = bc.boardnum AND uc.categorynum = bc.categorynum
+         WHERE (b.userid = #{userid}
+            OR bc.categorynum IS NOT NULL)
+            and b.boardnum < ${maxNum}
+         order by boardnum desc limit ${pageSize}
+      ]]>
+	</select>
+	<select id="getLastNum" resultType="boarddto">
+   <![CDATA[
+      select * from board order by boardnum desc limit 0, 1
+   ]]>
+	</select>
+	<select id="getListByKeyword" parameterType="hashmap" resultType="boarddto">
+		<!-- maxNum : 이전에 불러온 boardlist의 마지막 boardnum pageSize : 불러올 list의 개수 -->
+        <![CDATA[
+      select b.boardnum, b.boardcontents, b.regdate, b.updatedate, b.readcount, b.userid, c.categoryname,c.categorynum
+      from board as b
+      inner join b_category as bc
+      on b.boardnum = bc.boardnum
+      inner join category as c
+      on c.categorynum = bc.categorynum
+      where    
+         b.boardcontents like ('%${keyword}%')
+         or c.categoryname like ('%${keyword}%')
+         and b.boardnum < ${maxNum}
+      order by boardnum desc limit ${pageSize}
+         ]]>
+	</select>
+	<select id="getListByCategoryNum" parameterType="hashmap"
+		resultType="boarddto">
+      <![CDATA[
+           SELECT b.boardnum, b.boardcontents, b.regdate, b.updatedate, b.readcount, b.userid, bc.categorynum
+         FROM board b
+         JOIN b_category bc ON b.boardnum = bc.boardnum
+         WHERE bc.categorynum = #{categorynum}
+                and boardnum < ${maxNum}
+           order by boardnum desc limit ${pageSize}
+        ]]>
+	</select>
+	<select id="getBookmarkBoardListByUserid" parameterType="hashmap"
+		resultType="boarddto">
+      <![CDATA[
+         SELECT b.boardnum, b.boardcontents, b.regdate, b.updatedate,  b.readcount, b.userid
+         FROM user u
+         INNER JOIN b_bookmark bbm ON u.userid = bbm.userid
+         INNER JOIN board b ON bbm.boardnum = b.boardnum
+         WHERE u.userid = #{userid}
+               and b.boardnum < ${maxNum} 
+         order by b.boardnum desc limit ${pageSize}
+      ]]>
+	</select>
+	<select id="getFriendBoardListByUserid">
+	  <![CDATA[
+		SELECT b.boardnum, b.boardcontents, b.regdate, b.updatedate,  b.readcount, b.userid
+		FROM friend f
+		JOIN user u ON (u.userid = f.userid_1 OR u.userid = f.userid_2)
+		JOIN board b ON u.userid = b.userid
+		WHERE (f.userid_1 = 'apple' OR f.userid_2 = 'apple')
+		AND b.userid != 'apple'
+		ORDER BY b.regdate DESC;
+	  ]]>
+	</select>
+	<update id="update" parameterType="boarddto">
+		update board
+		set
+		boardcontents=#{boardcontents},updatedate=now()
+		where
+		boardnum=#{boardnum}
+	</update>
+	<update id="updateReadCount" parameterType="long">
+		update board
+		set
+		readcount=readcount+1
+		where boardnum=#{boardnum}
+	</update>
+	<delete id="delete" parameterType="long">
+		delete from board
+		where
+		boardnum=#{boardnum}
+	</delete>
+
+	<!-- Like -->
+	<insert id="insertLike" parameterType="likedto">
+		insert into
+		`like`(userid,boardnum)
+		values(#{userid},#{boardnum})
+	</insert>
+	<select id="getLikeCnt" parameterType="long" resultType="long">
+		select count(*) from `like` where boardnum=#{boardnum}
+	</select>
+	<!-- 반환 값이 null이면 해당 userid와 boardnum의 좋아요가 없는 것 -->
+	<select id="getMyLikeOfBoardByUseridAndBoardnum" parameterType="likedto" resultType="likedto">
+		select *
+		from `like` where userid=#{userid} and boardnum=#{boardnum}
+	</select>
+	<delete id="deleteLike" parameterType="likedto">
+		delete from `like`
+		where
+		userid=#{userid} and boardnum=#{boardnum}
+	</delete>
+
+	<!-- BoardBookmark -->
+	<insert id="insertBoardBookmark"
+		parameterType="boardbookmarkdto">
+		insert into b_bookmark(userid,boardnum)
+		values(#{userid},#{boardnum})
+	</insert>
+	<select id="getMyBoardBookmarkByUseridAndBoardnum" parameterType="boardbookmarkdto" resultType="boardbookmarkdto">
+		select *
+		from b_bookmark where userid=#{userid} and boardnum=#{boardnum}
+	</select>
+	<delete id="deleteBoardBookmark"
+		parameterType="boardbookmarkdto">
+		delete * from b_bookmark
+		where
+		userid=#{userid} and boardnum=#{boardnum}
+	</delete>
+
+	<!-- Category -->
+	<select id="getCategoryByCategorynum" parameterType="int"
+		resultType="categorydto">
+		select * from category where categorynum=#{categorynum}
+	</select>
+
+	<!-- BoardCategory -->
+	<insert id="insertBoardCategory"
+		parameterType="boardcategorydto">
+		insert into b_category(userid,boardnum)
+		values(${userid},${boardnum})
+	</insert>
+	<select id="getBoardCategoriesByBoardnum" parameterType="long"
+		resultType="boardcategorydto">
+		select * from b_category where boardnum=#{boardnum}
+	</select>
+	<delete id="deleteBoardCategory"
+		parameterType="boardcategorydto">
+		delete from b_category where userid=#{userid} and boardnum=#{boardnum}
+	</delete>
+
+	<!-- Reply -->
+	<insert id="insertReply" parameterType="replydto">
+		insert into reply
+		(replycontents,userid,boardnum)
+		values(#{replycontents},#{userid},#{boardnum})
+	</insert>
+	<select id="getLastReplyOfBoardByBoardnum" parameterType="long"
+		resultType="replydto">
+		select * from reply
+		where
+		boardnum=#{boardnum}
+		order by
+		replynum desc limit 0, 1
+	</select>
+	<select id="getRepliesByBoardnum" parameterType="hashmap"
+		resultType="replydto">
+        <![CDATA[
+         select * from reply
+         where boardnum=#{boardnum}
+            and replynum < ${maxNum}
+         order by replynum desc 
+         limit #{pageSize}
+      ]]>
+	</select>
+	<delete id="deleteReply" parameterType="long">
+		delete from reply
+		where
+		replynum=#{replynum}
+	</delete>
+	<update id="updateReply" parameterType="replydto">
+		update reply
+		set
+		replycontents=#{replycontents}, updatedate=now()
+		where
+		replynum=#{replynum}
+	</update>
+</mapper>

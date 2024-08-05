@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Bookmark">
+   <insert id="insert" parameterType="bookmarkdto">
+      insert into
+      <choose>
+         <when test="boardnum!=0">
+            b_bookmark (userid, boardnum)
+            values(#userid, #{boardnum})
+         </when>
+         <when test="storenum!=0">
+            s_bookmark (userid,storenum)
+            values(#{userid}, #{storenum})
+         </when>
+      </choose>
+   </insert> 
+	<select id="getBookmark" parameterType="bookmarkdto" resultType="bookmarkdto">
+			select userid,
+		 <choose>
+			<when test="boardnum!=0">
+				boardnum from b_bookmark
+			</when>
+			<when test="storenum!=0">
+				storenum from s_bookmark
+			</when>
+		</choose>
+		where userid=#{userid} 
+	</select>
+	<select id="getStoreBookmarkCnt" resultType="long">
+		select count(*) from s_bookmark where userid=#{userid}
+	</select>
+	<select id="getBoardBookmarkCnt" resultType="long">
+		select count(*) from b_bookmark where userid=#{userid}
+	</select>
+   <delete id="delete" parameterType="bookmarkdto">
+      delete from
+      <choose>
+         <when test="boardnum!=0">
+            b_bookmark where boardnum=#{boardnum}
+         </when>
+         <when test="storenum!=0">
+         	s_bookmark where storenum=#{storenum}
+         </when>
+      </choose>
+      and userid=#{userid}
+   </delete>
+</mapper>
