@@ -35,3 +35,28 @@
 3. 장터 기능 : 자신이 만든 음식, 음식 재료, 도구 등을 자유롭게 판매할 수 있는 기능을 제공합니다.
 4. 라이브 채팅 : 사용자들 간의 실시간 소통을 위한 라이브 채팅 기능을 도입하여 커뮤니티를 더 활성화 합니다.
    
+## :pencil: 개발 기간 및 작업 관리
+### 개발기간
+* 2024.04.01 ~ 2024.04.24
+
+### ERD
+![image](https://github.com/user-attachments/assets/53c4217b-ed6e-4485-9c76-56015ba53116)
+
+### 플로우 차트
+![image](https://github.com/user-attachments/assets/1b5841b6-0f98-4c26-9fa6-16cea9282c93)
+
+## :camera: 주요 화면
+### 홈 화면
+![image](https://github.com/user-attachments/assets/5ff28116-0f21-4638-85b7-5c5e62f37fe7)
+
+### 글쓰기 화면
+![image](https://github.com/user-attachments/assets/ad13d345-a02d-458b-9511-002003eb19f5)
+
+### 장터, 상세보기, 장터 글쓰기 화면
+![image](https://github.com/user-attachments/assets/5a60a2ab-cc63-4860-912b-e40e79f7a65e)
+![image](https://github.com/user-attachments/assets/d161c256-d2dd-4433-9410-ca73bd74d996)
+![image](https://github.com/user-attachments/assets/13508249-18ab-4971-855e-a865c4b226b7)
+
+### 채팅
+![image](https://github.com/user-attachments/assets/de3eefa8-6aa3-4551-866d-9045fa4b2397)
+
